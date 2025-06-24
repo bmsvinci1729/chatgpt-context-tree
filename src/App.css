@@ -1,8 +1,143 @@
-.send-button {
-  transition: transform 0.1s ease, background-color 0.2s;
+/* Layout */
+.app-container {
+  display: flex;
+  height: 100vh;
 }
 
-.send-button:active {
-  transform: scale(0.9);
-  background-color: #c69c6d; /* slightly darker */
+.sidebar {
+  background: #D4A373;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
+
+.sidebar-header {
+  color: #0F172A;
+  background-color: #D4A373;
+  text-align: center;
+}
+
+.chat-window {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.new-chat-button {
+  background-color: #fefae0;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.chat-item {
+  background-color: #0B1E00; /* fixed invalid color */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Main Area */
+.main {
+  background: #0F172A;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.title {
+  color: #10FDF8;
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.response-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.response-box {
+  width: 100%;
+  max-width: 90%;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 16px;
+  margin-top: 16px;
+  background-color: #fefae0;
+  color: #0F172A;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+/* Text Area + Send */
+.input-container {
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 30px 25px;
+  border: 1px solid #D4A373;
+}
+
+.textarea {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  color: #CCD5AE;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.send-button {
+  background-color: #D4A373;
+  border: none;
+  color: #0F172A;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+
+.user-bubble {
+  align-self: flex-end;
+  background-color: #e0f7fa;
+  color: #004d40;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 70%;
+}
+
+.bot-bubble {
+  align-self: flex-start;
+  background-color: #fefae0;
+  color: #0F172A;
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 70%;
+}
+

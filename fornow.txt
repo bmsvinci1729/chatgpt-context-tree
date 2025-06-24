@@ -3,54 +3,65 @@ import { useState } from 'react';
 import Markdown from 'react-markdown';
 
 export default function ChatApp() {
-  const [v, Sv] = useState([]); // new chat
-  const [inputText, setInputText] = useState(''); // input text box
-  const [resp, setResp] = useState(''); // response from llm
-  const [chatLog, setChatLog] = useState([])// chatLog
-  const [clog, sCLog] = useState('');
-  
-  /******************************************************************************************************/
+  const [chats, setChats] = useState([
+    { id: 1, title: 'Chatty ChatBox', messages: [] }
+  ]);
+  const [activeChatId, setActiveChatId] = useState(1);
+  const [inputText, setInputText] = useState('');
 
   function handleClick() {
-    Sv([...v, 'Chatty ChatBox']);
-    
+    const newId = chats.length + 1;
+    setChats([...chats, { id: newId, title: `Memory ${newId}`, messages: [] }]);
+    setActiveChatId(newId);
   }
 
   async function handleSend() {
-    if (inputText === "") {
+    if (inputText === '') {
       alert('Ask to become deserving first lad!!');
       return;
     }
 
-    
+    const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
     try {
+      const userMessage = { role: 'user', text: inputText };
 
-      setChatLog(prev => [...prev, { role: "user", text: inputText }]);
-
-      const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+      setChats(prevChats =>
+        prevChats.map(chat =>
+          chat.id === activeChatId
+            ? { ...chat, messages: [...chat.messages, userMessage] }
+            : chat
+        )
+      );
 
       const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: inputText + clog }] }]
+          contents: [{ parts: [{ text: inputText }] }]
         })
       });
 
       const data = await response.json();
       const result = data.candidates[0].content.parts[0].text;
-      setResp(result);
-      setChatLog(prev => [...prev, { role: "bot", text: result }]);
-      sCLog(inputText);
-      sCLog(result);
+      const botMessage = { role: 'bot', text: result };
 
+      setChats(prevChats =>
+        prevChats.map(chat =>
+          chat.id === activeChatId
+            ? { ...chat, messages: [...chat.messages, botMessage] }
+            : chat
+        )
+      );
 
+      setInputText('');
     } catch (error) {
       console.error('Error', error);
     }
   }
+
+  const activeChat = chats.find(chat => chat.id === activeChatId);
 
   return (
     <div className="app-container">
@@ -58,23 +69,27 @@ export default function ChatApp() {
         <h2 className="sidebar-header">Memories</h2>
         <button onClick={handleClick} className="new-chat-button">New Chat</button>
         <div>
-          {v.map((val, index) => (
-            <div key={index} className="chat-item">{val}</div>
+          {chats.map(chat => (
+            <div
+              key={chat.id}
+              className={`chat-item ${chat.id === activeChatId ? 'active' : ''}`}
+              onClick={() => setActiveChatId(chat.id)}
+            >
+              {chat.title}
+            </div>
           ))}
         </div>
       </div>
 
       <div className="main">
         <h1 className="title">childGPT</h1>
-          <div className='chat-window'>
-            <div>
-              {chatLog.map((msg, index) => (
-              <div key={index} className={msg.role === 'user' ? 'user-bubble' : 'bot-bubble'}>
-                <Markdown>{msg.text}</Markdown>
-              </div>
-            ))}
+        <div className="chat-window">
+          {activeChat.messages.map((msg, index) => (
+            <div key={index} className={msg.role === 'user' ? 'user-bubble' : 'bot-bubble'}>
+              <Markdown>{msg.text}</Markdown>
             </div>
-          </div>
+          ))}
+        </div>
 
         <div className="input-container">
           <textarea
@@ -114,3 +129,4 @@ export default function ChatApp() {
     </div>
   );
 }
+
