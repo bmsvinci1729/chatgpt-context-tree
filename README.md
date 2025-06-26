@@ -1,12 +1,21 @@
-# React + Vite
+# ChatGPT-like React Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This project is a frontend application built with **React**, inspired by the ChatGPT interface. Special feature added - **Threaded context**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
 
-## Expanding the ESLint configuration
+- New Chat Initialization
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Sub-Tab Functionality
+  Create *sub-chats* from any message in a parent conversation. Each sub-tab inherits the context of the parent chat up to the branching point, so this  allows focused exploration without losing prev context context. (inspired from google docs)
+
+- Dark Mode
+- Gemini Flash 2.0 API Integration - context of previous 6 chats(hardcoded) always remembers
+
+## Learning Objective
+
+This project is built as a hands-on learning tool to deeply understand React. It follows the official React documentation and learning path from [react.dev/learn](https://react.dev/learn).
+There is much to learn, and am venturing forward.
+
