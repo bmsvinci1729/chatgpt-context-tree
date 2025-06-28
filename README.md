@@ -19,3 +19,7 @@ This project is a frontend application built with **React**, inspired by the Cha
 This project is built as a hands-on learning tool to deeply understand React. It follows the official React documentation and learning path from [react.dev/learn](https://react.dev/learn).
 There is much to learn, and am venturing forward.
 
+![Screenshot from 2025-06-28 08-22-50](https://github.com/user-attachments/assets/ef0e86b2-114a-4b8d-9a40-ae3cbf80f7a4)
+<br />
+subChat - continues with the context of the prev chat (new feature)
+![Screenshot from 2025-06-28 08-24-08](https://github.com/user-attachments/assets/3a3b7e6e-4e10-4635-89af-1a8edc09e117)
